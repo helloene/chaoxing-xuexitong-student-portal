@@ -5,11 +5,14 @@ const i18n = {
     "app.shortTitle": "学习通门户",
     "meta.title": "学习通学生门户",
     "meta.description": "集中展示学生常用的学习通入口，支持浅色、深色模式与中英文切换。",
+    "faq.meta.title": "学习通门户 FAQ",
+    "faq.meta.description": "查看学习通门户常见问题，以及首页与各个内置入口的实际跳转链接。",
     "hero.eyebrow": "学生常用入口",
     "hero.title": "学习通常用功能，一页直达",
     "hero.lead":
       "把学生常用的学习通入口汇总在一个页面中，方便日常快速访问。你可以从这里进入作业、考试、消息、课表、课程、笔记本、云盘和学习资源等常用功能。",
     "hero.install": "安装应用",
+    "hero.faq": "查看 FAQ 与实际链接",
     "portal.heading": "常用入口",
     "portal.chip": "面向学生",
     "portal.desc":
@@ -32,6 +35,7 @@ const i18n = {
       "本 PWA 只缓存门户本身的静态资源，不会缓存学习通内的个人页面内容。",
     "footer.text": "MIT License",
     "footer.repo": "GitHub 仓库",
+    "footer.faq": "FAQ 页面",
     "aria.github": "GitHub 仓库",
     "aria.langToggle": "切换语言",
     "aria.themeToggle": "切换主题",
@@ -42,11 +46,15 @@ const i18n = {
     "meta.title": "Chaoxing Student Portal",
     "meta.description":
       "A student portal for common Chaoxing entry points, with light and dark modes plus bilingual support.",
+    "faq.meta.title": "Chaoxing Portal FAQ",
+    "faq.meta.description":
+      "Read common questions about the portal and see the direct URLs for each built-in destination.",
     "hero.eyebrow": "Student Quick Access",
     "hero.title": "Your Everyday Chaoxing Links In One Place",
     "hero.lead":
       "A student portal that gathers common Chaoxing entry points in one place for quicker daily access. From here, you can open homework, exams, messages, schedule, courses, notebooks, cloud drive, and other learning resources.",
     "hero.install": "Install App",
+    "hero.faq": "FAQ & Direct URLs",
     "portal.heading": "Quick Links",
     "portal.chip": "Student-facing",
     "portal.desc":
@@ -70,6 +78,7 @@ const i18n = {
       "This PWA only caches the portal's own static assets, not personal Chaoxing pages or content.",
     "footer.text": "MIT License",
     "footer.repo": "GitHub Repository",
+    "footer.faq": "FAQ Page",
     "aria.github": "GitHub repository",
     "aria.langToggle": "Switch language",
     "aria.themeToggle": "Toggle theme",
@@ -81,16 +90,16 @@ const i18n = {
 const installGuideCopy = {
   zh: {
     "ios-safari": {
-      hint: "Safari 需要通过“分享”菜单手动添加到主屏幕。",
+      hint: "Safari 需要通过“分享”菜单手动安装；如果没看到“添加到主屏幕”，先查看“更多”或“编辑操作”。",
       eyebrow: "Safari / iPhone / iPad",
       title: "在 Safari 中安装到主屏幕",
-      body: "Safari 不支持网页直接弹出安装框，但你仍然可以把这个站点添加成主屏幕应用。",
+      body: "Safari 不支持网页直接弹出安装框。iPhone 和 iPad 的菜单布局可能不同，但都可以通过分享菜单把这个站点添加成主屏幕应用。",
       steps: [
-        "点击浏览器工具栏中的“分享”按钮。",
-        "在弹出的菜单中找到并点击“添加到主屏幕”。",
+        "点击 Safari 工具栏中的“分享”按钮；如果当前界面先显示“更多”，先进入“更多”再继续。",
+        "在菜单中找到“添加到主屏幕”；如果暂时没有看到，先打开“编辑操作”并把它加入可见操作列表。",
         "如果看到了“作为网页 App 打开”或类似开关，保持开启；确认名称后点击“添加”。"
       ],
-      note: "添加后会像独立应用一样从主屏幕打开。如果没有看到该选项，请先确认你正在使用 Safari 打开，并且页面是通过 HTTPS 访问的。"
+      note: "添加后会像独立应用一样从主屏幕打开。如果仍然没有看到该选项，请确认页面正在 Safari 中打开，并且站点是通过 HTTPS 访问的。"
     },
     "mac-safari": {
       hint: "Safari 需要通过工具栏“共享”菜单手动添加到 Dock。",
@@ -119,16 +128,16 @@ const installGuideCopy = {
   },
   en: {
     "ios-safari": {
-      hint: "Safari requires a manual Share > Add to Home Screen flow.",
+      hint: "Safari requires a manual Share flow. If Add to Home Screen is missing, check More or Edit Actions.",
       eyebrow: "Safari / iPhone / iPad",
       title: "Install From Safari To The Home Screen",
-      body: "Safari does not expose a page-triggered install prompt, but you can still add this site as a Home Screen app.",
+      body: "Safari does not expose a page-triggered install prompt. iPhone and iPad layouts can differ, but both can add this site from the Share flow.",
       steps: [
-        "Tap the Share button in the browser toolbar.",
-        "Choose “Add to Home Screen” from the menu.",
+        "Tap the Share button in Safari. If your layout shows “More” first, open that before continuing.",
+        "Look for “Add to Home Screen”. If it is missing, open “Edit Actions” and add it to the visible actions list.",
         "If you see an “Open as Web App” style option, leave it enabled, then confirm the name and tap “Add”."
       ],
-      note: "After that, launch it from the Home Screen like an app. If the option is missing, make sure the page is open in Safari and served over HTTPS."
+      note: "After that, launch it from the Home Screen like an app. If the option still does not appear, make sure the page is open in Safari and served over HTTPS."
     },
     "mac-safari": {
       hint: "Safari requires a manual Share > Add to Dock flow.",
@@ -177,23 +186,54 @@ function safeStorageSet(key, value) {
 
 /* ===== Language / 语言 ===== */
 let currentLang = (function () {
-  const stored = safeStorageGet("lang");
-  if (stored === "zh" || stored === "en") return stored;
-  return /^zh\b/i.test(navigator.language) ? "zh" : "en";
+  const pageLang = document.documentElement.lang || "";
+  return /^zh\b/i.test(pageLang) ? "zh" : "en";
 })();
+
+function getCurrentPageType() {
+  if (document.body && document.body.dataset.page === "faq") return "faq";
+  return "home";
+}
 
 function getManifestHref(lang) {
   return lang === "en" ? "./app.en.webmanifest" : "./app.webmanifest";
 }
 
+function getPageHref(lang) {
+  if (getCurrentPageType() === "faq") {
+    return lang === "en" ? "./faq.en.html" : "./faq.html";
+  }
+  return lang === "en" ? "./en.html" : "./index.html";
+}
+
+function getMetaTitleKey(pageType) {
+  return pageType === "faq" ? "faq.meta.title" : "meta.title";
+}
+
+function getMetaDescriptionKey(pageType) {
+  return pageType === "faq" ? "faq.meta.description" : "meta.description";
+}
+
+function rememberLangPreference(lang) {
+  if (lang === "zh" || lang === "en") safeStorageSet("lang", lang);
+}
+
 function applyLang(lang) {
+  const pageType = getCurrentPageType();
+  const titleKey = getMetaTitleKey(pageType);
+  const descriptionKey = getMetaDescriptionKey(pageType);
+
   currentLang = lang;
-  window.__preferredLang = lang;
-  safeStorageSet("lang", lang);
   document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
-  document.title = i18n[lang]["meta.title"];
+  document.title = i18n[lang][titleKey];
   const metaDesc = document.querySelector('meta[name="description"]');
-  if (metaDesc) metaDesc.content = i18n[lang]["meta.description"];
+  if (metaDesc) metaDesc.content = i18n[lang][descriptionKey];
+  const ogTitle = document.querySelector('meta[property="og:title"]');
+  if (ogTitle) ogTitle.content = i18n[lang][titleKey];
+  const ogDesc = document.querySelector('meta[property="og:description"]');
+  if (ogDesc) ogDesc.content = i18n[lang][descriptionKey];
+  const applicationName = document.querySelector('meta[name="application-name"]');
+  if (applicationName) applicationName.content = i18n[lang]["app.shortTitle"];
   const appleTitle = document.getElementById("apple-mobile-web-app-title");
   // Keep Safari/PWA metadata aligned with the active language instead of only updating visible text.
   // 保持 Safari/PWA 元信息与当前语言一致，而不是只更新页面可见文案。
@@ -410,7 +450,9 @@ document.addEventListener("DOMContentLoaded", function () {
   var langBtn = document.getElementById("lang-toggle");
   if (langBtn)
     langBtn.addEventListener("click", function () {
-      applyLang(currentLang === "zh" ? "en" : "zh");
+      var nextLang = currentLang === "zh" ? "en" : "zh";
+      rememberLangPreference(nextLang);
+      window.location.href = getPageHref(nextLang);
     });
 
   var installBtn = document.getElementById("install-app");

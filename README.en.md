@@ -1,8 +1,15 @@
+<p align="center">
+  <img src="./icons/icon-192.png" alt="Chaoxing Student Portal icon" width="96" height="96">
+</p>
+
 # Chaoxing (XueXiTong) Student Portal
 
 [中文](./README.md)
 
-A lightweight static portal that brings together common Chaoxing (XueXiTong) student links in one place. It has no backend, no build step, and no runtime dependencies, so it can be deployed directly to GitHub Pages or opened locally in a browser.
+[![Open in Cloudflare Pages](https://img.shields.io/badge/Open-Cloudflare%20Pages-F38020?logo=cloudflare&logoColor=white)](https://dash.cloudflare.com/?to=/:account/workers-and-pages/create)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fhelloene%2Fchaoxing-xuexitong-student-portal)
+
+A lightweight static portal that brings together common Chaoxing (XueXiTong) student links in one place. It has no backend, no build step, and no runtime dependencies, so it can be deployed directly to GitHub Pages, Cloudflare Pages, or opened locally in a browser.
 
 ## Overview
 
@@ -14,13 +21,20 @@ This project is intended to:
 
 It is a navigation portal, not a proxy, not an automation tool, and not a replacement for Chaoxing itself.
 
+## Live Demos
+
+- [Cloudflare Pages](https://chaoxing.gorowan.dev) ([pages.dev](https://chaoxingportal.pages.dev/))
+- [Vercel](https://chaoxingportal.vercel.app/)
+- [GitHub Pages](https://helloene.github.io/chaoxing-xuexitong-student-portal/)
+
 ## Features
 
 - 10 built-in Chaoxing links commonly used by students
 - Material Design 3 inspired interface
 - Light / dark mode
 - Chinese / English language switch
-- Automatic initial theme and language detection
+- The root URL auto-selects a language from the device/browser and remembers manual switches
+- Separate Chinese and English entry pages so Safari share/install metadata matches the current page language
 - Installable as a PWA
 - Fully static, zero-dependency, no build pipeline
 
@@ -57,9 +71,11 @@ It is a navigation portal, not a proxy, not an automation tool, and not a replac
 
 ### Option 1: Open Locally
 
-Open `index.html` directly in a browser.
+Open `index.html` (Chinese) or `en.html` (English) directly in a browser.
 
-If you want a setup closer to production, run:
+This is best for a quick check of the page layout, copy, and destination links. When opened through `file://`, install prompts, Service Worker caching, and the offline shell usually do not behave like a real deployment.
+
+If you want to test language routing, install behavior, and offline support in an environment closer to production, run:
 
 ```bash
 python3 -m http.server
@@ -77,11 +93,54 @@ Then visit `http://localhost:8000`.
 
 If you want installable PWA behavior, serve the site over HTTPS. GitHub Pages already provides that.
 
+### Option 3: Deploy To Cloudflare Pages
+
+[![Open in Cloudflare Pages](https://img.shields.io/badge/Open-Cloudflare%20Pages-F38020?logo=cloudflare&logoColor=white)](https://dash.cloudflare.com/?to=/:account/workers-and-pages/create)
+
+1. Click the button above to open `Workers & Pages -> Create application` in Cloudflare
+2. Select `Pages`
+3. Choose `Import an existing Git repository`
+4. Select this repository, or your own fork
+5. Use the following deployment settings:
+
+| Setting | Value |
+|-------|-------|
+| Production branch | `main` |
+| Build command | `exit 0` |
+| Build output directory | `.` |
+| Root directory (advanced) | leave blank |
+
+6. Click `Save and Deploy`
+7. After deployment finishes, open the generated `*.pages.dev` URL
+
+This project keeps its static files in the repository root and already includes a top-level `index.html`, so it can be deployed to Pages with the configuration above.
+
+### Option 4: Deploy To Vercel
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fhelloene%2Fchaoxing-xuexitong-student-portal)
+
+1. Click the button above and sign in to Vercel
+2. Choose your Git provider account and target repository name
+3. If Vercel asks you to confirm build settings manually, use:
+
+| Setting | Value |
+|-------|-------|
+| Framework Preset | `Other` |
+| Build Command | leave blank |
+| Output Directory | `.` |
+| Root Directory | leave blank |
+
+4. Click `Deploy`
+5. After deployment finishes, open the generated Vercel domain
+
+This is a fully static project, and the repository root already contains a ready-to-serve `index.html`, so no extra build step is normally required.
+
 ## What You Can Customize
 
 To adapt the portal for your own use, these are the main files to edit:
 
-- `index.html`: link cards, static copy, page structure
+- `index.html` / `en.html`: localized entry pages, static copy, share metadata
+- `faq.html` / `faq.en.html`: FAQ pages, supporting guidance, and direct-link lists
 - `script.js`: i18n strings, theme switching, PWA install behavior
 - `styles.css`: visual design
 - `app.webmanifest` / `app.en.webmanifest`: localized app names, descriptions, and theme color
@@ -92,6 +151,9 @@ To adapt the portal for your own use, these are the main files to edit:
 ```text
 .
 ├── index.html
+├── en.html
+├── faq.html
+├── faq.en.html
 ├── styles.css
 ├── script.js
 ├── sw.js
@@ -108,8 +170,9 @@ To adapt the portal for your own use, these are the main files to edit:
 ## Technical Notes
 
 - No framework, bundler, or third-party dependencies
-- Uses `localStorage` for theme and language preferences
+- Uses `localStorage` for theme preferences
 - Uses a Service Worker to cache the static shell
+- Uses separate localized entry pages so Safari share cards and install names stay aligned with the current page language
 - Shows Safari-specific install guidance for “Add to Home Screen” and “Add to Dock”
 - Opens external Chaoxing pages in new tabs
 

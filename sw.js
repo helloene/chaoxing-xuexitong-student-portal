@@ -1,9 +1,12 @@
 // Cache only the local app shell so offline mode never stores personal Chaoxing content.
 // 只缓存本站点自己的应用外壳，避免离线缓存个人学习通内容。
-var CACHE_NAME = "chaoxing-portal-v3";
+var CACHE_NAME = "chaoxing-portal-v5";
 var APP_SHELL = [
   "./",
   "./index.html",
+  "./en.html",
+  "./faq.html",
+  "./faq.en.html",
   "./styles.css",
   "./script.js",
   "./app.webmanifest",
@@ -15,6 +18,13 @@ var APP_SHELL = [
 
 function isCacheableResponse(response) {
   return !!response && response.ok && (response.type === "basic" || response.type === "default");
+}
+
+function getNavigationFallback(pathname) {
+  if (/\/faq\.en\.html$/.test(pathname)) return "./faq.en.html";
+  if (/\/faq\.html$/.test(pathname)) return "./faq.html";
+  if (/\/en\.html$/.test(pathname)) return "./en.html";
+  return "./index.html";
 }
 
 self.addEventListener("install", function (event) {
@@ -71,7 +81,9 @@ self.addEventListener("fetch", function (event) {
           if (cached) return cached;
           // For page navigations, fall back to the shell entry so the portal still opens offline.
           // 对页面导航请求，回退到入口页缓存，保证离线时仍能打开门户壳层。
-          if (request.mode === "navigate") return caches.match("./index.html");
+          if (request.mode === "navigate") {
+            return caches.match(getNavigationFallback(url.pathname));
+          }
           throw new Error("offline-and-uncached");
         });
       })

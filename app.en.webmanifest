@@ -1,8 +1,9 @@
 {
+  "id": "./en.html",
   "name": "Chaoxing Student Portal",
   "short_name": "Chaoxing Portal",
   "description": "A student portal for common Chaoxing entry points, installable as a PWA.",
-  "start_url": "./",
+  "start_url": "./en.html",
   "scope": "./",
   "display": "standalone",
   "background_color": "#fbf8fd",
