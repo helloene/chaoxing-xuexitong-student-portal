@@ -405,6 +405,10 @@ main {
 }
 
 /* ===== Section ===== */
+.portal-section + .portal-section {
+  margin-top: 40px;
+}
+
 .section-header {
   display: flex;
   align-items: baseline;
