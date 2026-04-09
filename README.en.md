@@ -110,11 +110,13 @@ To adapt the portal for your own use, these are the main files to edit:
 - No framework, bundler, or third-party dependencies
 - Uses `localStorage` for theme and language preferences
 - Uses a Service Worker to cache the static shell
+- Shows Safari-specific install guidance for “Add to Home Screen” and “Add to Dock”
 - Opens external Chaoxing pages in new tabs
 
 ## Notes
 
 - If Chaoxing changes its URLs or page structure, some links may need manual updates.
+- Safari does not expose a page-triggered install prompt like Chromium browsers. On iPhone/iPad, install via “Add to Home Screen”; on Mac, install via “Add to Dock”.
 - Some browsers expose PWA installation differently. If the install button does not appear, use the browser menu option such as "Install App" or "Add to Home Screen".
 - This project only aggregates entry points and does not guarantee the availability of third-party services.
 

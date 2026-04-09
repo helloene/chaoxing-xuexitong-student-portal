@@ -1,3 +1,5 @@
+// Cache only the local app shell so offline mode never stores personal Chaoxing content.
+// 只缓存本站点自己的应用外壳，避免离线缓存个人学习通内容。
 var CACHE_NAME = "chaoxing-portal-v3";
 var APP_SHELL = [
   "./",
@@ -49,6 +51,8 @@ self.addEventListener("fetch", function (event) {
   if (request.method !== "GET") return;
   if (url.origin !== self.location.origin) return;
 
+  // Use a network-first strategy for fresh local assets, then fall back to cache when offline.
+  // 对本站资源采用“网络优先”策略，离线时再回退到缓存。
   event.respondWith(
     fetch(request)
       .then(function (response) {
@@ -65,6 +69,8 @@ self.addEventListener("fetch", function (event) {
       .catch(function () {
         return caches.match(request).then(function (cached) {
           if (cached) return cached;
+          // For page navigations, fall back to the shell entry so the portal still opens offline.
+          // 对页面导航请求，回退到入口页缓存，保证离线时仍能打开门户壳层。
           if (request.mode === "navigate") return caches.match("./index.html");
           throw new Error("offline-and-uncached");
         });

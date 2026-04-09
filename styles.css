@@ -264,6 +264,55 @@ main {
   gap: 12px;
 }
 
+.install-hint {
+  margin-top: 14px;
+  color: var(--md-on-surface-variant);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.install-guide {
+  margin-top: 18px;
+  max-width: 720px;
+  padding: 20px 24px;
+  border-radius: var(--md-shape-corner-lg);
+  background: var(--md-surface-container-low);
+  border: 1px solid var(--md-outline-variant);
+  box-shadow: var(--md-elevation-1);
+  outline: none;
+}
+
+.install-guide-eyebrow {
+  color: var(--md-primary);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.install-guide-title {
+  margin-top: 8px;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--md-on-surface);
+}
+
+.install-guide-body,
+.install-guide-note {
+  margin-top: 12px;
+  color: var(--md-on-surface-variant);
+  font-size: 0.9375rem;
+  line-height: 1.7;
+}
+
+.install-guide-steps {
+  margin-top: 14px;
+  padding-left: 20px;
+  color: var(--md-on-surface);
+  font-size: 0.9375rem;
+  line-height: 1.8;
+}
+
 /* ===== Buttons ===== */
 .btn-filled {
   display: inline-flex;
@@ -375,6 +424,9 @@ main {
   position: relative;
   overflow: hidden;
   text-align: center;
+  border: none;
+  width: 100%;
+  font: inherit;
   transition: box-shadow 200ms, transform 200ms;
 }
 
@@ -487,6 +539,10 @@ main {
 
   .hero h1 {
     font-size: 1.75rem;
+  }
+
+  .install-guide {
+    padding: 18px;
   }
 
   .portal-grid {

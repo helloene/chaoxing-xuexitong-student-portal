@@ -1,6 +1,6 @@
 {
   "name": "Chaoxing Student Portal",
-  "short_name": "Chaoxing",
+  "short_name": "Chaoxing Portal",
   "description": "A student portal for common Chaoxing entry points, installable as a PWA.",
   "start_url": "./",
   "scope": "./",

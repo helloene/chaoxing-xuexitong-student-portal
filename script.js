@@ -1,11 +1,12 @@
-/* ===== i18n Dictionary ===== */
+/* ===== i18n Dictionary / 国际化字典 ===== */
 const i18n = {
   zh: {
-    "app.title": "学习通学生门户",
+    "app.title": "学习通门户",
+    "app.shortTitle": "学习通门户",
     "meta.title": "学习通学生门户",
     "meta.description": "集中展示学生常用的学习通入口，支持浅色、深色模式与中英文切换。",
-    "hero.eyebrow": "学习通学生门户",
-    "hero.title": "学习通学生门户",
+    "hero.eyebrow": "学生常用入口",
+    "hero.title": "学习通常用功能，一页直达",
     "hero.lead":
       "把学生常用的学习通入口汇总在一个页面中，方便日常快速访问。你可以从这里进入作业、考试、消息、课表、课程、笔记本、云盘和学习资源等常用功能。",
     "hero.install": "安装应用",
@@ -36,12 +37,13 @@ const i18n = {
     "aria.themeToggle": "切换主题",
   },
   en: {
-    "app.title": "Chaoxing Student Portal",
+    "app.title": "Chaoxing Portal",
+    "app.shortTitle": "Chaoxing Portal",
     "meta.title": "Chaoxing Student Portal",
     "meta.description":
       "A student portal for common Chaoxing entry points, with light and dark modes plus bilingual support.",
-    "hero.eyebrow": "Chaoxing Student Portal",
-    "hero.title": "Chaoxing Student Portal",
+    "hero.eyebrow": "Student Quick Access",
+    "hero.title": "Your Everyday Chaoxing Links In One Place",
     "hero.lead":
       "A student portal that gathers common Chaoxing entry points in one place for quicker daily access. From here, you can open homework, exams, messages, schedule, courses, notebooks, cloud drive, and other learning resources.",
     "hero.install": "Install App",
@@ -74,7 +76,88 @@ const i18n = {
   },
 };
 
-/* ===== Storage Helpers ===== */
+// Safari install guidance is grouped by platform because iPhone/iPad and Mac use different menu paths.
+// Safari 的安装引导按平台分组，因为 iPhone/iPad 与 Mac 的菜单路径不同。
+const installGuideCopy = {
+  zh: {
+    "ios-safari": {
+      hint: "Safari 需要通过“分享”菜单手动添加到主屏幕。",
+      eyebrow: "Safari / iPhone / iPad",
+      title: "在 Safari 中安装到主屏幕",
+      body: "Safari 不支持网页直接弹出安装框，但你仍然可以把这个站点添加成主屏幕应用。",
+      steps: [
+        "点击浏览器工具栏中的“分享”按钮。",
+        "在弹出的菜单中找到并点击“添加到主屏幕”。",
+        "如果看到了“作为网页 App 打开”或类似开关，保持开启；确认名称后点击“添加”。"
+      ],
+      note: "添加后会像独立应用一样从主屏幕打开。如果没有看到该选项，请先确认你正在使用 Safari 打开，并且页面是通过 HTTPS 访问的。"
+    },
+    "mac-safari": {
+      hint: "Safari 需要通过工具栏“共享”菜单手动添加到 Dock。",
+      eyebrow: "Safari / Mac",
+      title: "在 Safari 中安装到 Dock",
+      body: "Safari on macOS 不会提供网页内安装弹窗，但支持把网站添加为 Dock Web App。",
+      steps: [
+        "点击 Safari 工具栏中的“共享”按钮。",
+        "选择“Add to Dock”。",
+        "确认名称后点击“Add”，之后就可以从 Dock 或启动台像应用一样打开。"
+      ],
+      note: "如果当前没有出现“Add to Dock”，请确认你正在使用较新的 macOS Safari 版本。"
+    },
+    generic: {
+      hint: "",
+      eyebrow: "浏览器安装说明",
+      title: "当前浏览器没有提供网页安装弹窗",
+      body: "这个站点已经具备 PWA 基础能力，但不同浏览器暴露安装入口的方式并不一样。",
+      steps: [
+        "先确认页面通过 HTTPS 访问，而不是本地 file:// 地址。",
+        "查看浏览器菜单中是否有“安装应用”或“添加到主屏幕”之类的选项。",
+        "如果菜单里也没有，说明当前浏览器可能暂时不支持这类安装入口。"
+      ],
+      note: "在支持 `beforeinstallprompt` 的浏览器中，页面会优先弹出原生安装提示。"
+    }
+  },
+  en: {
+    "ios-safari": {
+      hint: "Safari requires a manual Share > Add to Home Screen flow.",
+      eyebrow: "Safari / iPhone / iPad",
+      title: "Install From Safari To The Home Screen",
+      body: "Safari does not expose a page-triggered install prompt, but you can still add this site as a Home Screen app.",
+      steps: [
+        "Tap the Share button in the browser toolbar.",
+        "Choose “Add to Home Screen” from the menu.",
+        "If you see an “Open as Web App” style option, leave it enabled, then confirm the name and tap “Add”."
+      ],
+      note: "After that, launch it from the Home Screen like an app. If the option is missing, make sure the page is open in Safari and served over HTTPS."
+    },
+    "mac-safari": {
+      hint: "Safari requires a manual Share > Add to Dock flow.",
+      eyebrow: "Safari / Mac",
+      title: "Install From Safari To The Dock",
+      body: "Safari on macOS does not expose an in-page install prompt, but it can turn this site into a Dock web app.",
+      steps: [
+        "Click the Share button in the Safari toolbar.",
+        "Choose “Add to Dock”.",
+        "Confirm the name and click “Add”, then open it from the Dock or Launchpad like an app."
+      ],
+      note: "If you do not see “Add to Dock”, update to a newer macOS Safari release."
+    },
+    generic: {
+      hint: "",
+      eyebrow: "Browser Install Help",
+      title: "This browser did not provide an install prompt",
+      body: "The site is already installable as a PWA, but browsers expose the install entry point differently.",
+      steps: [
+        "Make sure the page is served over HTTPS instead of a local file URL.",
+        "Check the browser menu for options such as “Install App” or “Add to Home Screen”.",
+        "If the menu does not include one, this browser likely does not expose installation for this site."
+      ],
+      note: "Browsers that support `beforeinstallprompt` will still show the native prompt first."
+    }
+  }
+};
+
+/* ===== Storage Helpers / 存储工具 ===== */
 function safeStorageGet(key) {
   try {
     return window.localStorage.getItem(key);
@@ -92,7 +175,7 @@ function safeStorageSet(key, value) {
   }
 }
 
-/* ===== Language ===== */
+/* ===== Language / 语言 ===== */
 let currentLang = (function () {
   const stored = safeStorageGet("lang");
   if (stored === "zh" || stored === "en") return stored;
@@ -111,6 +194,10 @@ function applyLang(lang) {
   document.title = i18n[lang]["meta.title"];
   const metaDesc = document.querySelector('meta[name="description"]');
   if (metaDesc) metaDesc.content = i18n[lang]["meta.description"];
+  const appleTitle = document.getElementById("apple-mobile-web-app-title");
+  // Keep Safari/PWA metadata aligned with the active language instead of only updating visible text.
+  // 保持 Safari/PWA 元信息与当前语言一致，而不是只更新页面可见文案。
+  if (appleTitle) appleTitle.content = i18n[lang]["app.shortTitle"];
 
   document.querySelectorAll("[data-i18n]").forEach(function (el) {
     const key = el.getAttribute("data-i18n");
@@ -136,9 +223,12 @@ function applyLang(lang) {
 
   const langBtn = document.getElementById("lang-toggle");
   if (langBtn) langBtn.textContent = lang === "zh" ? "EN" : "中文";
+
+  updateInstallGuideCopy();
+  updateInstallHint();
 }
 
-/* ===== Theme ===== */
+/* ===== Theme / 主题 ===== */
 function getEffectiveTheme() {
   const stored = document.documentElement.dataset.theme;
   if (stored === "light" || stored === "dark") return stored;
@@ -164,8 +254,9 @@ function toggleTheme() {
   applyThemeIcon();
 }
 
-/* ===== PWA Install ===== */
+/* ===== PWA Install / PWA 安装 ===== */
 let deferredInstallPrompt = null;
+let currentInstallGuideType = null;
 
 function isStandalone() {
   return (
@@ -174,44 +265,144 @@ function isStandalone() {
   );
 }
 
+function getInstallContext() {
+  const ua = navigator.userAgent;
+  const platform = navigator.platform || "";
+  const maxTouchPoints = navigator.maxTouchPoints || 0;
+  // Safari does not expose a unified install API, so we infer which manual guide to show.
+  // Safari 没有统一的安装 API，所以这里根据设备环境推断应展示哪套手动安装说明。
+  const isIOS =
+    /iPad|iPhone|iPod/.test(ua) ||
+    (platform === "MacIntel" && maxTouchPoints > 1);
+  const isSafari =
+    /Safari/i.test(ua) &&
+    !/Chrome|CriOS|EdgiOS|Edg|OPR|OPiOS|Firefox|FxiOS|DuckDuckGo|SamsungBrowser/i.test(ua);
+  const isMac = !isIOS && /Mac/i.test(platform);
+
+  return {
+    isIOS: isIOS,
+    isMac: isMac,
+    isSafari: isSafari,
+  };
+}
+
+function getManualInstallGuideType() {
+  const ctx = getInstallContext();
+  if (ctx.isSafari && ctx.isIOS) return "ios-safari";
+  if (ctx.isSafari && ctx.isMac) return "mac-safari";
+  return "generic";
+}
+
+function hideInstallGuide() {
+  const guide = document.getElementById("install-guide");
+  const btn = document.getElementById("install-app");
+  currentInstallGuideType = null;
+  if (guide) guide.hidden = true;
+  if (btn) btn.setAttribute("aria-expanded", "false");
+}
+
+function updateInstallGuideCopy() {
+  if (!currentInstallGuideType) return;
+
+  const copy = installGuideCopy[currentLang][currentInstallGuideType];
+  const guide = document.getElementById("install-guide");
+  const eyebrow = document.getElementById("install-guide-eyebrow");
+  const title = document.getElementById("install-guide-title");
+  const body = document.getElementById("install-guide-body");
+  const steps = document.getElementById("install-guide-steps");
+  const note = document.getElementById("install-guide-note");
+
+  if (!copy || !guide || !eyebrow || !title || !body || !steps || !note) return;
+
+  eyebrow.textContent = copy.eyebrow;
+  title.textContent = copy.title;
+  body.textContent = copy.body;
+  steps.innerHTML = "";
+  copy.steps.forEach(function (step) {
+    const li = document.createElement("li");
+    li.textContent = step;
+    steps.appendChild(li);
+  });
+  note.textContent = copy.note;
+}
+
+function showInstallGuide(type) {
+  const guide = document.getElementById("install-guide");
+  const btn = document.getElementById("install-app");
+  if (!guide) return;
+
+  currentInstallGuideType = type;
+  updateInstallGuideCopy();
+  guide.hidden = false;
+  if (btn) btn.setAttribute("aria-expanded", "true");
+  if (typeof guide.focus === "function") guide.focus();
+}
+
 function updateInstallButtonVisibility() {
   const btn = document.getElementById("install-app");
   if (!btn) return;
   btn.hidden = isStandalone();
+  if (isStandalone()) hideInstallGuide();
+}
+
+function updateInstallHint() {
+  const hint = document.getElementById("install-hint");
+  if (!hint) return;
+
+  if (isStandalone() || deferredInstallPrompt) {
+    hint.hidden = true;
+    hint.textContent = "";
+    return;
+  }
+
+  const type = getManualInstallGuideType();
+  const copy = installGuideCopy[currentLang][type];
+  if (!copy || !copy.hint) {
+    hint.hidden = true;
+    hint.textContent = "";
+    return;
+  }
+
+  hint.textContent = copy.hint;
+  hint.hidden = false;
 }
 
 window.addEventListener("beforeinstallprompt", function (e) {
   e.preventDefault();
   deferredInstallPrompt = e;
+  hideInstallGuide();
   updateInstallButtonVisibility();
+  updateInstallHint();
 });
 
 window.addEventListener("appinstalled", function () {
   deferredInstallPrompt = null;
+  hideInstallGuide();
   updateInstallButtonVisibility();
+  updateInstallHint();
 });
 
 function handleInstallClick() {
   if (!deferredInstallPrompt) {
-    var msg =
-      currentLang === "zh"
-        ? '当前浏览器暂时没有提供安装提示，可以使用浏览器菜单里的"添加到主屏幕"或"安装应用"。'
-        : 'Your browser did not offer an install prompt. Use "Add to Home Screen" or "Install App" from the browser menu.';
-    window.alert(msg);
+    // Chromium browsers can show a native prompt; Safari falls back to step-by-step instructions.
+    // Chromium 浏览器可以弹出原生安装框；Safari 则回退到分步骤引导。
+    showInstallGuide(getManualInstallGuideType());
     return;
   }
   deferredInstallPrompt.prompt();
   deferredInstallPrompt.userChoice.then(function () {
     deferredInstallPrompt = null;
     updateInstallButtonVisibility();
+    updateInstallHint();
   });
 }
 
-/* ===== Init ===== */
+/* ===== Init / 初始化 ===== */
 document.addEventListener("DOMContentLoaded", function () {
   applyLang(currentLang);
   applyThemeIcon();
   updateInstallButtonVisibility();
+  updateInstallHint();
 
   var themeBtn = document.getElementById("theme-toggle");
   if (themeBtn) themeBtn.addEventListener("click", toggleTheme);
@@ -223,17 +414,21 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
   var installBtn = document.getElementById("install-app");
-  if (installBtn) installBtn.addEventListener("click", handleInstallClick);
+  if (installBtn) {
+    installBtn.addEventListener("click", handleInstallClick);
+    installBtn.setAttribute("aria-expanded", "false");
+    installBtn.setAttribute("aria-controls", "install-guide");
+  }
 });
 
-/* ===== Service Worker ===== */
+/* ===== Service Worker / Service Worker 注册 ===== */
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", function () {
     navigator.serviceWorker.register("./sw.js").catch(function () {});
   });
 }
 
-/* ===== Listen for system theme changes ===== */
+/* ===== Listen for system theme changes / 监听系统主题变化 ===== */
 var colorSchemeMedia = window.matchMedia("(prefers-color-scheme: dark)");
 var handleSystemThemeChange = function () {
   if (!safeStorageGet("theme")) applyThemeIcon();
