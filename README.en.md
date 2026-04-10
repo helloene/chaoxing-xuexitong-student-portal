@@ -7,9 +7,10 @@
 [中文](./README.md)
 
 [![Open in Cloudflare Pages](https://img.shields.io/badge/Open-Cloudflare%20Pages-F38020?logo=cloudflare&logoColor=white)](https://dash.cloudflare.com/?to=/:account/workers-and-pages/create)
+[![Deploy with EdgeOne Pages](https://cdnstatic.tencentcs.com/edgeone/pages/deploy.svg)](https://edgeone.ai/pages/new?repository-url=https%3A%2F%2Fgithub.com%2Fhelloene%2Fchaoxing-xuexitong-student-portal&project-name=chaoxingportal&output-directory=.)
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fhelloene%2Fchaoxing-xuexitong-student-portal)
 
-A lightweight static portal that brings together common Chaoxing (XueXiTong) student links in one place. It has no backend, no build step, and no runtime dependencies, so it can be deployed directly to GitHub Pages, Cloudflare Pages, or opened locally in a browser.
+A lightweight static portal that brings together common Chaoxing (XueXiTong) student links in one place. It has no backend, no build step, and no runtime dependencies, so it can be deployed directly to GitHub Pages, Cloudflare Pages, EdgeOne Pages, Vercel, or opened locally in a browser.
 
 ## Overview
 
@@ -24,6 +25,7 @@ It is a navigation portal, not a proxy, not an automation tool, and not a replac
 ## Live Demos
 
 - [Cloudflare Pages](https://chaoxing.gorowan.dev) ([pages.dev](https://chaoxingportal.pages.dev/))
+- [EdgeOne Pages](https://xuexitong.gorowan.dev)
 - [Vercel](https://chaoxingportal.vercel.app/)
 - [GitHub Pages](https://helloene.github.io/chaoxing-xuexitong-student-portal/)
 
@@ -115,7 +117,27 @@ If you want installable PWA behavior, serve the site over HTTPS. GitHub Pages al
 
 This project keeps its static files in the repository root and already includes a top-level `index.html`, so it can be deployed to Pages with the configuration above.
 
-### Option 4: Deploy To Vercel
+### Option 4: Deploy To EdgeOne Pages
+
+[![Deploy with EdgeOne Pages](https://cdnstatic.tencentcs.com/edgeone/pages/deploy.svg)](https://edgeone.ai/pages/new?repository-url=https%3A%2F%2Fgithub.com%2Fhelloene%2Fchaoxing-xuexitong-student-portal&project-name=chaoxingportal&output-directory=.)
+
+1. Click the button above and sign in to EdgeOne Pages
+2. Authorize GitHub and select this repository, or your own fork
+3. If the console does not fully prefill the settings, confirm the following values:
+
+| Setting | Value |
+|-------|-------|
+| Production branch | `main` |
+| Build command | leave blank |
+| Output directory | `.` |
+| Root directory | leave blank |
+
+4. Click `Create now` or the deploy action in the console
+5. After deployment finishes, open the EdgeOne Pages domain assigned to the project
+
+This project is fully static and already ships a ready-to-serve `index.html` in the repository root, so no extra build step is normally required. The button above also pre-fills the repository URL and output directory for a faster setup.
+
+### Option 5: Deploy To Vercel
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fhelloene%2Fchaoxing-xuexitong-student-portal)
 

@@ -7,9 +7,10 @@
 [English](./README.en.md)
 
 [![Open in Cloudflare Pages](https://img.shields.io/badge/Open-Cloudflare%20Pages-F38020?logo=cloudflare&logoColor=white)](https://dash.cloudflare.com/?to=/:account/workers-and-pages/create)
+[![使用 EdgeOne Pages 部署](https://cdnstatic.tencentcs.com/edgeone/pages/deploy.svg)](https://edgeone.ai/pages/new?repository-url=https%3A%2F%2Fgithub.com%2Fhelloene%2Fchaoxing-xuexitong-student-portal&project-name=chaoxingportal&output-directory=.)
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fhelloene%2Fchaoxing-xuexitong-student-portal)
 
-一个面向学生的静态学习通门户页，用来汇总常用的超星学习通入口。它不依赖后端、不需要构建，适合直接部署到 GitHub Pages、Cloudflare Pages，或者本地直接打开使用。
+一个面向学生的静态学习通门户页，用来汇总常用的超星学习通入口。它不依赖后端、不需要构建，适合直接部署到 GitHub Pages、Cloudflare Pages、EdgeOne Pages、Vercel，或者本地直接打开使用。
 
 ## 项目简介
 
@@ -24,6 +25,7 @@
 ## 在线体验
 
 - [Cloudflare Pages](https://chaoxing.gorowan.dev)（[pages.dev](https://chaoxingportal.pages.dev/)）
+- [EdgeOne Pages](https://xuexitong.gorowan.dev)
 - [Vercel](https://chaoxingportal.vercel.app/)
 - [GitHub Pages](https://helloene.github.io/chaoxing-xuexitong-student-portal/)
 
@@ -115,7 +117,27 @@ python3 -m http.server
 
 这个项目的静态文件位于仓库根目录，且已经包含顶层 `index.html`，因此可以直接按上述配置部署。
 
-### 方式 4：部署到 Vercel
+### 方式 4：部署到 EdgeOne Pages
+
+[![使用 EdgeOne Pages 部署](https://cdnstatic.tencentcs.com/edgeone/pages/deploy.svg)](https://edgeone.ai/pages/new?repository-url=https%3A%2F%2Fgithub.com%2Fhelloene%2Fchaoxing-xuexitong-student-portal&project-name=chaoxingportal&output-directory=.)
+
+1. 点击上面的按钮，登录 EdgeOne Pages
+2. 授权并选择当前 GitHub 仓库，或你自己的 fork 仓库
+3. 如果页面没有完全自动带出配置，可按下面的参数确认：
+
+| 配置项 | 值 |
+|------|------|
+| Production branch | `main` |
+| Build command | 留空 |
+| Output directory | `.` |
+| Root directory | 留空 |
+
+4. 点击 `Create now` 或控制台中的部署按钮
+5. 部署完成后，使用 EdgeOne Pages 分配的域名访问
+
+这是一个纯静态项目，仓库根目录已经包含可直接访问的 `index.html`，通常不需要额外构建步骤。通过上面的按钮也可以直接把仓库地址和输出目录预填到 EdgeOne Pages 中。
+
+### 方式 5：部署到 Vercel
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fhelloene%2Fchaoxing-xuexitong-student-portal)
 
